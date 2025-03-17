@@ -1,0 +1,41 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn.lock
+package-lock.json
+
+# Build files
+dist/
+build/
+
+# Logs
+logs/
+*.log
+yarn-error.log
+
+# Dependency directories
+vendor/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# PHP specific
+composer.lock
+/public/vendor/
+*.cache
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.bak
+*.swp
+*.swo
