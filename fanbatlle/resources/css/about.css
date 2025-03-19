@@ -1,0 +1,82 @@
+/* Navbar */
+.navbar {
+  padding: 10px;
+}
+
+.collapse{
+  margin: 25px;
+}
+
+.navbar-nav{
+  padding-left: 65%;
+}
+
+.nav-link {
+  color: black;
+  font-weight: 500;
+}
+.sign, .register {
+  padding: 5px 12px;
+  border: 2px solid black;
+}
+.sign {
+  background-color: #DCDBDB;
+}
+.register {
+  color: #fff;
+  background-color: black;
+}
+
+/* Présentation */
+.presentation {
+  background-color: #111927;
+  color: white;
+  padding: 10% 0;
+}
+.presentation h1 {
+  font-size: 60px;
+}
+.presentation h3 {
+  color: #E9C823;
+  font-size: 28px;
+}
+.presentation button {
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+/* Vidéo */
+.video {
+  margin: 30px 0;
+}
+.video video {
+  width: 80%;
+  max-width: 800px;
+}
+
+/* Cartes */
+.cards{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-left: 35%;
+  margin-right: 35%;
+  
+}
+
+.card {
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Footer */
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  margin-top: 50px;
+}
