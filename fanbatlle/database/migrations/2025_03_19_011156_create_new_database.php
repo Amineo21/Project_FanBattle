@@ -14,7 +14,9 @@ class CreateNewDatabase extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('date_of_birth')->nullable();
+            $table->date('date_of_birth');
+            $table->string('country');
+            $table->boolean('is_admin');
         });
 
         Schema::create('votes', function (Blueprint $table) {
@@ -44,6 +46,8 @@ class CreateNewDatabase extends Migration
         Schema::dropIfExists('votes');
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('date_of_birth');
+            $table->dropColumn('country');
+            $table->dropColumn('is_admin');
         });
     }
 }
