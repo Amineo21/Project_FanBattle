@@ -1,11 +1,35 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import logo from '../../img/logo.png';
+import '../../css/app.css'
+
+const EuStars = () => (
+    <div className="absolute -inset-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 flex">
+            {[...Array(5)].map((_, i) => (
+                <span 
+                    key={i} 
+                    className="text-yellow-400 text-xs transform origin-center animate-star"
+                    style={{
+                        animation: `starRotate 2s infinite ${i * 0.2}s`,
+                        opacity: 0.8,
+                        marginLeft: '2px'
+                    }}
+                >
+                    ★
+                </span>
+            ))}
+        </div>
+        <div className="absolute inset-0 bg-blue-500/5 blur-sm rounded-lg"></div>
+    </div>
+);
 
 export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
 
     return (
         <>
+<<<<<<< HEAD
             <Head title="Welcome">
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -782,8 +806,67 @@ export default function Welcome() {
                             <div className="absolute inset-0 rounded-t-lg shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] lg:rounded-t-none lg:rounded-r-lg dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d]" />
                         </div>
                     </main>
+=======
+            <Head title="Welcome" />
+            
+            <div className="min-h-screen flex flex-col md:flex-row">
+                <div className="w-full md:w-1/2 bg-white flex items-center justify-center py-8 md:py-0">
+                    <img 
+                        src={logo} 
+                        alt="Article11 Logo" 
+                        className="w-64 md:w-96 h-64 md:h-96 object-contain"
+                    />
                 </div>
-                <div className="hidden h-14.5 lg:block"></div>
+                <div className="w-full md:w-1/2 bg-[#111927] text-white relative min-h-screen md:min-h-full">
+                    <nav className="absolute w-full flex items-center justify-between px-4 md:px-12 pt-4 md:pt-6">
+                        <div className="w-32"></div>
+                        <div className="flex items-center gap-4 md:gap-8">
+                            <Link href="/community" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
+                                Community
+                                <EuStars/>
+                            </Link>
+                            <Link href="/contact" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
+                                Contact
+                                <EuStars/>
+                            </Link>
+                            <Link href="/link" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
+                                Link
+                                <EuStars/>
+                            </Link>
+                        </div>
+                        <div className="flex items-center">
+                            {auth.user ? (
+                                <Link href="/dashboard" className="bg-white/90 hover:bg-white text-[#111927] px-3 md:px-4 py-1.5 rounded-md text-sm transition-colors">
+                                    Dashboard
+                                </Link>
+                            ) : (
+                                <div className="flex items-center gap-2 md:gap-3 mr-4">
+                                    <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-3 md:px-4 py-1.5 rounded-md text-sm transition-all duration-300 hover:shadow-lg hover:scale-105">
+                                        Sign in
+                                    </Link>
+                                    <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-3 md:px-4 py-1.5 rounded-md text-sm transition-all duration-300 hover:shadow-lg hover:scale-105">
+                                        Register
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                    </nav>
+
+
+                    <div className="flex flex-col items-center justify-center h-full space-y-4 md:space-y-6 px-4 md:px-8 pt-20 md:pt-0">
+                        <h1 className="text-3xl md:text-5xl font-bold text-center">Welcome to Article11</h1>
+                        <p className="text-lg md:text-xl text-yellow-400 text-center">
+                            "We want to know what young europeans think"
+                        </p>
+                        <Link 
+                            href="/login" 
+                            className="bg-white hover:bg-white/90 text-[#111927] px-6 md:px-8 py-2 rounded-full mt-4 md:mt-8 text-sm md:text-base transition-all duration-300 hover:shadow-lg hover:scale-105 hover:bg-opacity-100"
+                        >
+                            See more
+                        </Link>
+                    </div>
+>>>>>>> main
+                </div>
             </div>
         </>
     );
