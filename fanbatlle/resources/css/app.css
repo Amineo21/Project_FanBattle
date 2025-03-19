@@ -157,3 +157,20 @@
         @apply bg-background text-foreground;
     }
 }
+
+
+@keyframes starRotate {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-2px) rotate(180deg) scale(1.2);
+    }
+    100% {
+        transform: translateY(0) rotate(360deg) scale(1);
+    }
+}
+
+.animate-star {
+    animation: starRotate 2s infinite;
+}
