@@ -14,9 +14,9 @@ class CreateNewDatabase extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('date_of_birth');
-            $table->string('country');
-            $table->boolean('is_admin');
+            //$table->date('date_of_birth');
+            // $table->string('country');
+            // $table->boolean('is_admin');
         });
 
         Schema::create('votes', function (Blueprint $table) {
