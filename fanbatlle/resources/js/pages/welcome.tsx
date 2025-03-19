@@ -32,30 +32,58 @@ export default function Welcome() {
             <Head title="Welcome" />
             
             <div className="min-h-screen flex flex-col md:flex-row">
-                <div className="w-full md:w-1/2 bg-white flex items-center justify-center py-8 md:py-0">
+                <div className="hidden md:flex w-full md:w-1/2 bg-white items-center justify-center py-8 md:py-0">
                     <img 
                         src={logo} 
                         alt="Article11 Logo" 
                         className="w-64 md:w-96 h-64 md:h-96 object-contain"
                     />
                 </div>
-                <div className="w-full md:w-1/2 bg-[#111927] text-white relative min-h-screen md:min-h-full">
+
+                {/* Mobile version */}
+                <div className="flex md:hidden min-h-screen w-full bg-[#111927] flex-col">
+                    <nav className="w-full flex justify-end p-4">
+                        {auth.user ? (
+                            <Link href="/dashboard" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Dashboard
+                            </Link>
+                        ) : (
+                            <div className="flex gap-2">
+                                <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Sign in
+                                </Link>
+                                <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Register
+                                </Link>
+                            </div>
+                        )}
+                    </nav>
+                    <div className="flex-1 flex flex-col items-center justify-center px-4">
+                        <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center mb-8">
+                            <img 
+                                src={logo} 
+                                alt="Article11 Logo" 
+                                className="w-24 h-24 object-contain"
+                            />
+                        </div>
+                        <h1 className="text-2xl font-bold text-white mb-4 text-center">Welcome to Article11</h1>
+                        <p className="text-yellow-400 text-sm mb-8 text-center">
+                            "We want to know what young europeans think"
+                        </p>
+                        <Link 
+                            href="/login" 
+                            className="bg-white text-[#111927] px-12 py-2 rounded-md text-base font-medium"
+                        >
+                            See more
+                        </Link>
+                    </div>
+                </div>
+
+                
+                <div className="hidden md:block w-full md:w-1/2 bg-[#111927] text-white relative min-h-screen md:min-h-full">
                     <nav className="absolute w-full flex items-center justify-between px-4 md:px-12 pt-4 md:pt-6">
                         <div className="w-32"></div>
-                        <div className="flex items-center gap-4 md:gap-8">
-                            <Link href="/community" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
-                                Community
-                                <EuStars/>
-                            </Link>
-                            <Link href="/contact" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
-                                Contact
-                                <EuStars/>
-                            </Link>
-                            <Link href="/link" className="text-base md:text-lg text-white/80 hover:text-white transition-colors relative group">
-                                Link
-                                <EuStars/>
-                            </Link>
-                        </div>
+                      
                         <div className="flex items-center">
                             {auth.user ? (
                                 <Link href="/dashboard" className="bg-white/90 hover:bg-white text-[#111927] px-3 md:px-4 py-1.5 rounded-md text-sm transition-colors">
