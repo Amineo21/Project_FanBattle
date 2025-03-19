@@ -4,13 +4,11 @@ import React from 'react';
 import Logo from '../../../img/logo.png';
 import countries from '../../components/JSON/country.json';
 
-
-
 type RegisterForm = {
     name: string;
     email: string;
     password: string;
-    birthday: Date;
+    birthday: string;
     country: string;
 };
 
@@ -19,12 +17,15 @@ export default function Register() {
         name: '',
         email: '',
         password: '',
-        birthday: new Date(),
+        birthday: '',
         country: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        // console.log(data);
+
         post(route('register'), {
             onFinish: () => reset('password'),
         });
@@ -82,14 +83,15 @@ export default function Register() {
                             <label className="block text-sm font-medium text-gray-700 mb-2">Date de naissance</label>
                             <input
                                 type="date"
-                                value={data.birthday ? data.birthday.toISOString().split('T')[0] : ''}
+                                value={data.birthday}
                                 onChange={e => {
-                                    const selectedDate = new Date(e.target.value);
+                                    const selectedDate = e.target.value; // Le format sera déjà YYYY-MM-DD
                                     const today = new Date();
                                     const minDate = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate()); // 25 ans max
                                     const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()); // 18 ans min
 
-                                    if (selectedDate >= minDate && selectedDate <= maxDate) {
+                                    // Vérification si la date sélectionnée est dans l'intervalle
+                                    if (selectedDate >= minDate.toISOString().split('T')[0] && selectedDate <= maxDate.toISOString().split('T')[0]) {
                                         setData('birthday', selectedDate);
                                     }
                                 }}
@@ -119,8 +121,6 @@ export default function Register() {
                             {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country}</p>}
                         </div>
 
-
-
                         <button
                             type="submit"
                             disabled={processing}
@@ -134,6 +134,12 @@ export default function Register() {
                                 Already have an account?
                             </Link>
                         </div>
+
+                        {Object.keys(errors).map((field) => (
+                            <div key={field} className="text-red-500 text-sm mt-1">
+                                {errors[field as keyof RegisterForm]}
+                            </div>
+                        ))}
                     </form>
                 </div>
             </div>
