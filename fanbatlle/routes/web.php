@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\VoteController\PollCrud;
+use App\Http\Controllers\VoteController\PollController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,7 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::resource('votes', PollCrud::class);
+Route::get('CreatePoll', [PollController::class, 'create'])->name('create');
+Route::post('CreatePoll', [PollController::class, 'store']);
 
 
 require __DIR__.'/settings.php';

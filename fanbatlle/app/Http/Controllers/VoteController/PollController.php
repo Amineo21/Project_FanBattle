@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Vote;
 use Inertia\Inertia;
 
-class PollCrud extends Controller
+class PollController extends Controller
 {
     /**
      * Affiche la liste de tous les sondages.
@@ -61,8 +61,7 @@ class PollCrud extends Controller
             ]);
    
 
-        return redirect()->route('CreatePoll')
-            ->with('success', 'Sondage créé avec succès');
+            return redirect()->route('create')->with('success', 'User registered successfully');
      }
 
     /**
