@@ -14,6 +14,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+Route::get('/about', function () {
+    return Inertia::render('about');
+})->name('about');
+
+Route::get('/udash', function () {
+    return Inertia::render('udash');
+})->name('udash');
 
 Route::get('CreatePoll', [PollController::class, 'create'])->name('create');
 Route::post('CreatePoll', [PollController::class, 'store']);
@@ -30,7 +37,5 @@ Route::get('polls', [PollController::class, 'index'])->name('polls.index');
 Route::get('polls/{id}/edit', [PollController::class, 'edit'])->name('polls.edit');
 Route::match(['put', 'patch'], 'polls/{id}', [PollController::class, 'update'])->name('polls.update');
 
-
-
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

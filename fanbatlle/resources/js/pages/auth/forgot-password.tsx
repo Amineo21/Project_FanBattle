@@ -1,63 +1,64 @@
-// Components
-import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import React from 'react';
+import Logo from '../../../img/logo.png';
 
-import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
+type ForgotPasswordForm = {
+    email: string;
+};
 
-export default function ForgotPassword({ status }: { status?: string }) {
-    const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
+export default function ForgotPassword() {
+    const { data, setData, post, processing, errors } = useForm<ForgotPasswordForm>({
         email: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-
         post(route('password.email'));
     };
 
     return (
-        <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
-            <Head title="Forgot password" />
-
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
-
-            <div className="space-y-6">
-                <form onSubmit={submit}>
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            name="email"
-                            autoComplete="off"
-                            value={data.email}
-                            autoFocus
-                            onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+        <>
+            <Head title="Forgot Password" />
+            <div className="min-h-screen flex items-center justify-center bg-[#111927] p-4">
+                <div className="w-full max-w-md bg-white rounded-2xl p-8">
+                    <div className="text-center">
+                        <img 
+                            src={Logo}
+                            alt="Article11 Logo" 
+                            className="w-32 h-32 mx-auto mb-6"
                         />
-
-                        <InputError message={errors.email} />
+                        <h2 className="text-2xl font-bold text-[#111927] mb-8">Reset your password</h2>
                     </div>
 
-                    <div className="my-6 flex items-center justify-start">
-                        <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Email password reset link
-                        </Button>
-                    </div>
-                </form>
+                    <form onSubmit={submit} className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input
+                                type="email"
+                                value={data.email}
+                                onChange={e => setData('email', e.target.value)}
+                                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-0 placeholder-gray-600 text-black caret-black"
+                                placeholder="Value"
+                            />
+                        </div>
 
-                <div className="text-muted-foreground space-x-1 text-center text-sm">
-                    <span>Or, return to</span>
-                    <TextLink href={route('login')}>log in</TextLink>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full bg-[#2F2F2F] text-white py-3 rounded-md hover:bg-[#1a1a1a] transition-colors"
+                        >
+                            Send Reset Link
+                        </button>
+
+                        <div className="flex items-center justify-center text-sm">
+                            <Link href={route('login')} className="text-gray-600 hover:text-gray-800 underline">
+                                Back to login
+                            </Link>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </AuthLayout>
+        </>
     );
 }
