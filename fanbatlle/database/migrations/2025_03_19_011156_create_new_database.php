@@ -14,9 +14,9 @@ class CreateNewDatabase extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //$table->date('date_of_birth');
-            // $table->string('country');
-            // $table->boolean('is_admin');
+            $table->date('date_of_birth');
+            $table->string('country');
+            $table->boolean('is_admin');
         });
 
         Schema::create('votes', function (Blueprint $table) {
@@ -27,7 +27,7 @@ class CreateNewDatabase extends Migration
             $table->timestamps();
         });
 
-        Schema::create('users_vote', function (Blueprint $table) {
+        Schema::create('user_votes', function (Blueprint $table) {
             $table->id();
             $table->integer('answer');
             $table->string('commentary');
@@ -42,7 +42,7 @@ class CreateNewDatabase extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_vote');
+        Schema::dropIfExists('user_votes');
         Schema::dropIfExists('votes');
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('date_of_birth');
