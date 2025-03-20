@@ -27,8 +27,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const votesResponse = await fetch("../Models/Vote.php ");
-        const usersResponse = await fetch("../Models/User.php");
+        const votesResponse = await fetch("http://127.0.0.1:8000/api/votes ");
+        const usersResponse = await fetch("http://127.0.0.1:8000/api/users");
 
         if (!votesResponse.ok || !usersResponse.ok) {
           throw new Error("Erreur lors du chargement des données.");
