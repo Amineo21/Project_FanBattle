@@ -266,5 +266,4 @@ export default function Navbar() {
             </footer>
         </>
     );
->>>>>>> 56790e118de5a9414bb2bad673ca32060c6c43b4
 }
