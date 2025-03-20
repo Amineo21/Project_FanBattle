@@ -1,3 +1,4 @@
+
 import { Link } from '@inertiajs/react';
 import '../../css/app.css';
 import Logo from '../../img/logo.png';
