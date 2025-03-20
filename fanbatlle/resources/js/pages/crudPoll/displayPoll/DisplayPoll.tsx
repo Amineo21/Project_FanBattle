@@ -1,40 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Head, Link, usePage } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
-const DisplayPool = () => {
-  const [voteId, setVoteId] = useState('');
-  const [voteResult, setVoteResult] = useState('');
+type Vote = {
+  id: number;
+  start_date: string;
+  end_date: string;
+  poll_question: string;
+};
 
-  const handleFetchVote = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`/votes/${voteId}`);
-      const data = await response.json();
-      setVoteResult(JSON.stringify(data, null, 2));
-    } catch (error) {
-      console.error('Erreur lors de la récupération du sondage:', error);
-      setVoteResult('Erreur: ' + error.toString());
+type PageProps = {
+  votes: Vote[];
+};
+
+export default function DisplayPoll() {
+  const { votes } = usePage<PageProps>().props;
+
+  const handleDelete = (id: number) => {
+    if (confirm("Voulez-vous vraiment supprimer ce sondage ?")) {
+      Inertia.delete(`/polls/${id}`);
     }
   };
 
   return (
     <div>
-      <h2>Afficher un sondage</h2>
-      <form onSubmit={handleFetchVote}>
-        <div>
-          <label htmlFor="vote_id">ID du sondage :</label>
-          <input
-            type="number"
-            id="vote_id"
-            value={voteId}
-            onChange={(e) => setVoteId(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Afficher</button>
-      </form>
-      <pre>{voteResult}</pre>
+      <Head title="Liste des sondages" />
+      <h2>Liste des sondages</h2>
+      {votes.length === 0 ? (
+        <p>Aucun sondage trouvé.</p>
+      ) : (
+        <ul>
+          {votes.map((vote) => (
+            <li key={vote.id}>
+              <strong>ID :</strong> {vote.id} - <strong>Question :</strong> {vote.poll_question}{' '}
+              <Link href={`/polls/${vote.id}`}>Voir les détails</Link>{' '}
+              <Link href={`/polls/${vote.id}/edit`}>
+                <button>Modifier</button>
+              </Link>{' '}
+              <button onClick={() => handleDelete(vote.id)}>Supprimer</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
-};
-
-export default DisplayPool;
+}

@@ -19,7 +19,7 @@ class PollController extends Controller
         $votes = Vote::all();
         // Assurez-vous que le composant DisplayPool se trouve bien à :
         // resources/js/pages/crudPoll/DisplayPool.tsx
-        return Inertia::render('crudPoll/displayPoll/DisplayPool', [
+        return Inertia::render('crudPoll/displayPoll/DisplayPoll', [
             'votes' => $votes,
         ]);
     }
@@ -73,12 +73,12 @@ class PollController extends Controller
     {
         $vote = Vote::find($id);
         if (!$vote) {
-            return redirect()->route('votes.index')
+            return redirect()->route('polls.index')
                 ->with('error', 'Sondage non trouvé');
         }
         // Assurez-vous que le composant DisplayPoolDetail est bien à :
         // resources/js/pages/crudPoll/DisplayPoolDetail.tsx
-        return Inertia::render('crudPoll/DisplayPoolDetail', [
+        return Inertia::render('crudPoll/detailPoll/DisplayPollDetail', [
             'vote' => $vote,
         ]);
     }
@@ -92,12 +92,12 @@ class PollController extends Controller
     {
         $vote = Vote::find($id);
         if (!$vote) {
-            return redirect()->route('votes.index')
+            return redirect()->route('polls.index')
                 ->with('error', 'Sondage non trouvé');
         }
         // Assurez-vous que le composant UpdatePool est bien à :
         // resources/js/pages/crudPoll/UpdatePool.tsx
-        return Inertia::render('crudPoll/UpdatePool', [
+        return Inertia::render('crudPoll/updatePoll/UpdatePoll', [
             'vote' => $vote,
         ]);
     }
@@ -111,7 +111,7 @@ class PollController extends Controller
     {
         $vote = Vote::find($id);
         if (!$vote) {
-            return redirect()->route('votes.index')
+            return redirect()->route('polls.index')
                 ->with('error', 'Sondage non trouvé');
         }
 
@@ -124,7 +124,7 @@ class PollController extends Controller
 
         $vote->update($data);
 
-        return redirect()->route('votes.index')
+        return redirect()->route('polls.index')
             ->with('success', 'Sondage mis à jour avec succès');
     }
 
@@ -137,13 +137,13 @@ class PollController extends Controller
     {
         $vote = Vote::find($id);
         if (!$vote) {
-            return redirect()->route('votes.index')
+            return redirect()->route('polls.index')
                 ->with('error', 'Sondage non trouvé');
         }
 
         $vote->delete();
 
-        return redirect()->route('votes.index')
+        return redirect()->route('polls.index')
             ->with('success', 'Sondage supprimé avec succès');
     }
 }
