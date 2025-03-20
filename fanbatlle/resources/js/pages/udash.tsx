@@ -65,7 +65,6 @@ export default function UserDashboard() {
                             <i className="fas fa-user text-gray-600 text-xl"></i>
                         </div>
                         <div className="ml-3">
-                            <p className="text-white font-medium">Username</p>
                             <p className="text-sm text-gray-400">RealName</p>
                         </div>
                     </div>
