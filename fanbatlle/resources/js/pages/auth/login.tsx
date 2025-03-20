@@ -1,110 +1,100 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-
-import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
-
-type LoginForm = {
-    email: string;
-    password: string;
-    remember: boolean;
-};
+import React from 'react';
+import Logo from '../../../img/logo.png'
 
 interface LoginProps {
     status?: string;
     canResetPassword: boolean;
 }
 
+// At the top of the file, after the imports
+type FormData = {
+    email: string;
+    password: string;
+    remember: boolean;
+};
+
 export default function Login({ status, canResetPassword }: LoginProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+    const { data, setData, post, processing, errors, reset } = useForm<FormData>({
         email: '',
         password: '',
         remember: false,
     });
 
+    const getCsrfToken = (): string => {
+        const token = document.head.querySelector('meta[name="csrf-token"]');
+        return token ? token.getAttribute('content') || '' : '';
+    };
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+        
+        // On ajoute le token CSRF dans les en-têtes
         post(route('login'), {
-            onFinish: () => reset('password'),
+            headers: {
+                'X-CSRF-TOKEN': getCsrfToken(),
+            },
         });
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
-            <Head title="Log in" />
-
-            <form className="flex flex-col gap-6" onSubmit={submit}>
-                <div className="grid gap-6">
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            required
-                            autoFocus
-                            tabIndex={1}
-                            autoComplete="email"
-                            value={data.email}
-                            onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+        <>
+            <Head title="Login" />
+            <div className="min-h-screen flex items-center justify-center bg-[#111927] p-4">
+                <div className="w-full max-w-md bg-white rounded-2xl p-8">
+                    <div className="text-center">
+                        <img 
+                            src={Logo}
+                            alt="Article11 Logo" 
+                            className="w-32 h-32 mx-auto mb-6"
                         />
-                        <InputError message={errors.email} />
+                        <h2 className="text-2xl font-bold text-[#111927] mb-8">Connect to your account</h2>
                     </div>
 
-                    <div className="grid gap-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
-                            {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    Forgot password?
-                                </TextLink>
-                            )}
+                    <form onSubmit={submit} className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input
+                                type="email"
+                                value={data.email}
+                                onChange={e => setData('email', e.target.value)}
+                                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-0 placeholder-gray-600 text-black caret-black"
+                                placeholder="Value"
+                            />
                         </div>
-                        <Input
-                            id="password"
-                            type="password"
-                            required
-                            tabIndex={2}
-                            autoComplete="current-password"
-                            value={data.password}
-                            onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
-                        />
-                        <InputError message={errors.password} />
-                    </div>
 
-                    <div className="flex items-center space-x-3">
-                        <Checkbox
-                            id="remember"
-                            name="remember"
-                            checked={data.remember}
-                            onClick={() => setData('remember', !data.remember)}
-                            tabIndex={3}
-                        />
-                        <Label htmlFor="remember">Remember me</Label>
-                    </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input
+                                type="password"
+                                value={data.password}
+                                onChange={e => setData('password', e.target.value)}
+                                className="w-full px-4 py-3 text-base border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-0 placeholder-gray-600 text-black caret-black"
+                                placeholder="Value"
+                            />
+                        </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Log in
-                    </Button>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full bg-[#2F2F2F] text-white py-3 rounded-md hover:bg-[#1a1a1a] transition-colors"
+                        >
+                            Sign In
+                        </button>
+
+                        <div className="flex items-center justify-between text-sm">
+                            <Link href={route('password.request')} className="text-blue-600 hover:text-blue-800 underline">
+                                Forgot password?
+                            </Link>
+                            <Link href={route('register')} className="text-gray-600 hover:text-gray-800 underline">
+                                Don't have an account yet?
+                            </Link>
+                        </div>
+                    </form>
                 </div>
-
-                <div className="text-muted-foreground text-center text-sm">
-                    Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
-                        Sign up
-                    </TextLink>
-                </div>
-            </form>
-
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
-        </AuthLayout>
+            </div>
+        </>
     );
 }

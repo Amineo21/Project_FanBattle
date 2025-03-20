@@ -1,12 +1,7 @@
 <?php
-
+use App\Http\Controllers\VoteController\PollController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-use App\Http\Controllers\PageController;
-
-Route::get('/', [PageController::class, 'index']);
-
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -33,5 +28,5 @@ Route::get('/dashboardapp', function () {
 //     })->name('dashboard');
 // });
 
-// require __DIR__.'/settings.php';
-// require __DIR__.'/auth.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
