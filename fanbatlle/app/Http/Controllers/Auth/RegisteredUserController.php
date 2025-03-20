@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -28,24 +29,31 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'birthday' => 'required|date', // Validation de la date
+            'country' => 'required|string|max:255',
+            'is_admin' => 'nullable|boolean', // si c'est un champ optionnel
         ]);
-
+    
+        // Assure-toi que la date est bien formatée au format YYYY-MM-DD avant d'enregistrer
+        $birthday = Carbon::parse($data['birthday'])->format('Y-m-d'); // Utilisation de Carbon pour formater la date
+    
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'date_of_birth' => $birthday, // Enregistrer la date formatée
+            'country' => $data['country'],
+            'is_admin' => $data['is_admin'] ?? 0, // Valeur par défaut de 0
         ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return to_route('dashboard');
+    
+        return redirect()->route('login')->with('success', 'User registered successfully');
     }
+    
+    
 }

@@ -23,9 +23,20 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         remember: false,
     });
 
+    const getCsrfToken = (): string => {
+        const token = document.head.querySelector('meta[name="csrf-token"]');
+        return token ? token.getAttribute('content') || '' : '';
+    };
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('login'));
+        
+        // On ajoute le token CSRF dans les en-têtes
+        post(route('login'), {
+            headers: {
+                'X-CSRF-TOKEN': getCsrfToken(),
+            },
+        });
     };
 
     return (
