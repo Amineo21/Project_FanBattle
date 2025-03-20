@@ -25,7 +25,20 @@ Route::get('/dashboardapp', function () {
 })->name('dashboardapp');
 
 
+Route::get('CreatePoll', [PollController::class, 'create'])->name('create');
+Route::post('CreatePoll', [PollController::class, 'store']);
 
+//Route::get('DisplayPoll', [PollController::class, 'index'])->name('display');
+// Lister les sondages
+Route::get('polls', [PollController::class, 'index'])->name('polls.index');
+Route::get('polls/{id}', [PollController::class, 'show'])->name('polls.show');
+// Supprimer un sondage
+Route::delete('polls/{id}', [PollController::class, 'destroy'])->name('polls.destroy');
+// Lister les sondages
+Route::get('polls', [PollController::class, 'index'])->name('polls.index');
+// Éditer un sondage
+Route::get('polls/{id}/edit', [PollController::class, 'edit'])->name('polls.edit');
+Route::match(['put', 'patch'], 'polls/{id}', [PollController::class, 'update'])->name('polls.update');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('dashboard', function () {
