@@ -1,5 +1,30 @@
+import { Link } from 'lucide-react';
 import '../../css/about.css';
 
+
+
+const EuStars = () => {
+  return (
+    <div className="absolute -inset-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 flex">
+        {[...Array(5)].map((_, i) => (
+          <span
+            key={i}
+            className="text-yellow-400 text-xs transform origin-center animate-star"
+            style={{
+              animation: `starRotate 2s infinite ${i * 0.2}s`,
+              opacity: 0.8,
+              marginLeft: '2px',
+            }}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+      <div className="absolute inset-0 bg-blue-500/5 blur-sm rounded-lg"></div>
+    </div>
+  );
+};
 
 export default function About() {
 
@@ -32,7 +57,7 @@ export default function About() {
         </button>
         <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item"><a className="nav-link" href="#">Community</a></li>
+            <li className="nav-item"> <a className="nav-link" href="#">Community</a></li>
             <li className="nav-item"><a className="nav-link" href="#">Contact</a></li>
             <li className="nav-item"><a className="nav-link" href="#">Link</a></li>
           </ul>

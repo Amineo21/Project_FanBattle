@@ -16,9 +16,13 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
-Route::get('/dashboard', function () {
+Route::get('/dashboardadmin', function () {
+    return Inertia::render('dashboard_admin');
+})->name('dashboardadmin');
+
+Route::get('/dashboardapp', function () {
     return Inertia::render('dashboard_app');
-})->name('dashboard');
+})->name('dashboardapp');
 
 
 
