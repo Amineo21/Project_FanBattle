@@ -16,19 +16,24 @@ type CreatePollForm = {
 }
 
 export default function CreatePoll() {
-  const {data, setData, post, processing, errors, reset } = useForm<Required<CreatePollForm>> ({
-      start_date: '',
-      end_date: '',
-      poll_question: '',
-    });
-  
-    const submit: FormEventHandler = (e) => {
-      e.preventDefault();
+  const { data, setData, post, processing, errors, reset } = useForm<Required<CreatePollForm>>({
+    start_date: '',
+    end_date: '',
+    poll_question: '',
+  });
 
-      post(route('create'))
-    }
-  
-    return (
+  const submit: FormEventHandler = (e) => {
+    e.preventDefault();
+
+    post(route('create'))
+  }
+
+  return (
+
+    <>
+
+
+
       <div>
         <h2>Créer un sondage</h2>
         <form onSubmit={submit}>
@@ -71,7 +76,10 @@ export default function CreatePoll() {
           <button type="submit">Créer le sondage</button>
         </form>
       </div>
-    );
-  }
+
+    </>
+  )
+};
+
 
 

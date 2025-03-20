@@ -1,6 +1,8 @@
-import { Link } from '@inertiajs/react';
+import { type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import Logo from '../../img/logo.png';
 import '../../css/app.css';
+import TextLink from '@/components/text-link';
 import { useState } from 'react';
 
 const EuStars = () => (
@@ -24,7 +26,16 @@ const EuStars = () => (
     </div>
 );
 
+import Albania from '../../img/albania.jpg';
+import Glucks from '../../img/glucks.jpeg';
+import Irlande from '../../img/irlande.jpg';
+import Josep from '../../img/josep.jpg';
+import Jsp from '../../img/jsp.jpg';
+import Macron from '../../img/macron.jpg';
+import Ursula from '../../img/ursula.jpg';
+
 export default function Navbar() {
+    const { auth } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -57,15 +68,20 @@ export default function Navbar() {
                         <EuStars />
                     </Link>
                     <div className="flex gap-2">
-                        <Link
-                            href="/login"
-                            className="bg-white hover:bg-gray-200 text-[#111927] px-4 py-1.5 rounded-md text-sm shadow-md transition"
-                        >
-                            Sign in
-                        </Link>
-                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Register
-                        </Link>
+                        {auth.user ? (
+                            <Link href={route('logout')} method="post" as="button" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Signout
+                            </Link>
+                        ) : (
+                            <div className="flex gap-2">
+                                <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Sign in
+                                </Link>
+                                <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Register
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -73,7 +89,7 @@ export default function Navbar() {
                     className={`
                         absolute top-full left-0 right-0 flex-col py-8 shadow-lg
                         transform transition-all duration-300 ease-in-out
-                        bg-gradient-to-b from-white to-gray-50 min-h-[calc(100vh-4rem)]
+                        bg-gradient-to-b from-white to-gray-500 min-h-[calc(100vh-4rem)]
                         ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
                         md:hidden
                     `}
@@ -100,12 +116,15 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex gap-2">
-                        <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Sign in
-                        </Link>
-                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Register
-                        </Link>
+                        {auth.user ? (
+                            <Link href='/udash' className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Try out
+                            </Link>
+                        ) : (
+                            <Link href={route('logout')} method="post" as="button" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Signout
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -167,44 +186,90 @@ export default function Navbar() {
             <header className="bg-[#111927] py-8 md:py-32 text-center px-4">
                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">Welcome to Article11</h1>
                 <p className="mb-5 text-lg md:text-xl text-[#D4AF37]">"Your opinion is our matter"</p>
-                <button className='w-60 bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] py-3 rounded-lg text-base font-medium text-center transition-all duration-300 hover:shadow-lg hover:scale-105'>
-                    Try out
-                </button>
+                {auth.user ? (
+                    <Link href='/udash' className="  inline-flex items-center px-6 py-3 text-base font-medium rounded-lg bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#111927] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] group">
+                        Try out
+                        <i className="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </Link>
+                ) : (
+                    <TextLink href={route('logout')} method="post" className="  inline-flex items-center px-6 py-3 text-base font-medium rounded-lg bg-[#D4AF37] hover:bg-[#D4AF37]/90 text-[#111927] transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] group">
+                        Try out
+                        <i className="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                    </TextLink>
+                )}
             </header>
 
+
+
             <main className="p-8 pt-16 bg-white">
+
                 <h2 className="text-4xl font-bold mb-12 text-[#111927] relative pl-4 after:content-[''] after:absolute after:bottom-0 after:left-4 after:w-24 after:h-1 after:bg-[#D4AF37]">
                     Law/Subject to debate !
                 </h2>
                 <div className="griddy grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                    {[...Array(6)].map((_, index) => (
+                    {[
+                        {
+                            img: Albania,
+                            title: "Albanian Digital Rights",
+                            desc: "Exploring digital rights and media freedom in Albania's evolving landscape"
+                        },
+                        {
+                            img: Glucks,
+                            title: "European Press Freedom",
+                            desc: "Analysis of press freedom initiatives across European Union member states"
+                        },
+                        {
+                            img: Irlande,
+                            title: "Irish Media Law",
+                            desc: "Recent developments in Irish media regulation and digital rights"
+                        },
+                        {
+                            img: Josep,
+                            title: "EU Policy Making",
+                            desc: "Understanding the impact of EU policies on digital media and publishing"
+                        },
+                        {
+                            img: Jsp,
+                            title: "Digital Publishing",
+                            desc: "The future of digital content publishing in the European market"
+                        },
+                        {
+                            img: Macron,
+                            title: "French Media Laws",
+                            desc: "France's approach to digital rights and content regulation"
+                        }
+                    ].map((card, index) => (
                         <div key={index}
-                            className=" cursor-pointer scale-transition hover-scale bg-white rounded-lg p-6 relative border border-gray-100
+                            className="cursor-pointer scale-transition hover-scale bg-white rounded-lg p-6 relative border border-gray-100
                                 hover:border-[#D4AF37]/30 hover:shadow-[0_0_15px_rgba(212,175,55,0.15)]"
                         >
                             <div className="relative">
-                                <div className="bg-gradient-to-br from-gray-100 to-gray-200 h-48 rounded-md mb-4"></div>
+                                <img
+                                    src={card.img}
+                                    alt={card.title}
+                                    className="w-full h-48 object-cover rounded-md mb-4"
+                                />
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                                     <i className="fas fa-gavel text-4xl text-[#D4AF37]/50"></i>
                                 </div>
                                 <h3 className="text-xl font-semibold mb-2 text-[#111927] border-b border-transparent hover:border-[#D4AF37] transition-all duration-300 inline-block">
-                                    Debate Topic {index + 1}
+                                    {card.title}
                                 </h3>
-                                <div className="flex flex-col mt-4">
-                                    <h4 className="text-lg font-medium text-left mb-2 text-[#111927]">Majority</h4>
-                                    <div className="flex items-center space-x-4 bg-gray-50 p-3 rounded-md">
-                                        <span className="text-green-600 font-medium flex items-center">
-                                            <i className="fas fa-check-circle mr-2"></i>For
-                                        </span>
-                                        <span className="text-[#111927] opacity-50">•</span>
-                                        <span className="text-[#111927] font-medium flex items-center">
-                                            <i className="fas fa-balance-scale mr-2"></i>Neutral
-                                        </span>
-                                        <span className="text-[#111927] opacity-50">•</span>
-                                        <span className="text-red-600 font-medium flex items-center">
-                                            <i className="fas fa-times-circle mr-2"></i>Against
-                                        </span>
-                                    </div>
+                                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                                    {card.desc}
+                                </p>
+                                <div className="flex items-center space-x-4 bg-gray-50 p-3 rounded-md mt-4">
+                                    <span className="text-green-600 font-medium flex items-center text-sm">
+                                        <i className="fas fa-check-circle mr-2"></i>For
+                                    </span>
+                                    <span className="text-[#111927] opacity-50">•</span>
+                                    <span className="text-[#111927] font-medium flex items-center text-sm">
+                                        <i className="fas fa-balance-scale mr-2"></i>Neutral
+                                    </span>
+                                    <span className="text-[#111927] opacity-50">•</span>
+                                    <span className="text-red-600 font-medium flex items-center text-sm">
+                                        <i className="fas fa-times-circle mr-2"></i>Against
+                                    </span>
                                 </div>
                             </div>
                         </div>

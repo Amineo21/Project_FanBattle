@@ -30,7 +30,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        
+
         // On ajoute le token CSRF dans les en-têtes
         post(route('login'), {
             headers: {
@@ -45,9 +45,9 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <div className="min-h-screen flex items-center justify-center bg-[#111927] p-4">
                 <div className="w-full max-w-md bg-white rounded-2xl p-8">
                     <div className="text-center">
-                        <img 
+                        <img
                             src={Logo}
-                            alt="Article11 Logo" 
+                            alt="Article11 Logo"
                             className="w-32 h-32 mx-auto mb-6"
                         />
                         <h2 className="text-2xl font-bold text-[#111927] mb-8">Connect to your account</h2>
@@ -76,13 +76,12 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             />
                         </div>
 
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="w-full bg-[#2F2F2F] text-white py-3 rounded-md hover:bg-[#1a1a1a] transition-colors"
+                        <Link
+                            href="/udash"
+                            className="w-full bg-[#2F2F2F] text-white py-3 rounded-md hover:bg-[#1a1a1a] transition-colors text-center block"
                         >
                             Sign In
-                        </button>
+                        </Link>
 
                         <div className="flex items-center justify-between text-sm">
                             <Link href={route('password.request')} className="text-blue-600 hover:text-blue-800 underline">
