@@ -61,7 +61,7 @@ export default function Navbar() {
                     </Link>
                     <div className="flex gap-2">
                         {auth.user ? (
-                            <Link href={route('logout')} method="post" as="button" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            <Link href={route('logout')} method="post" as="button" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
                                 Signout
                             </Link>
                         ) : (
@@ -183,8 +183,8 @@ export default function Navbar() {
                         Try out
                     </Link>
                 ) : (
-                    <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
-                        Log out
+                    <TextLink href={route('logout')} method="post" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                        Try out
                     </TextLink>
                 )}
 

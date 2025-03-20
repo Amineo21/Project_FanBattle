@@ -29,6 +29,11 @@ export default function CreatePoll() {
     }
   
     return (
+
+    <>
+
+
+
       <div>
         <h2>Créer un sondage</h2>
         <form onSubmit={submit}>
