@@ -2,7 +2,6 @@ import { Link } from '@inertiajs/react';
 import Logo from '../../img/logo.png';
 import '../../css/app.css';
 import { useState } from 'react';
-import video from '../../img/video.mp4'
 
 const EuStars = () => (
     <div className="absolute -inset-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -57,11 +56,17 @@ export default function Navbar() {
                         Link
                         <EuStars />
                     </Link>
-                    <Link
-                        href="/welcome"
-                        className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm transition-all duration-300 hover:shadow-lg hover:scale-105">
-                        Sign out
-                    </Link>
+                    <div className="flex gap-2">
+                        <Link
+                            href="/login"
+                            className="bg-white hover:bg-gray-200 text-[#111927] px-4 py-1.5 rounded-md text-sm shadow-md transition"
+                        >
+                            Sign in
+                        </Link>
+                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            Register
+                        </Link>
+                    </div>
                 </div>
 
                 <div
@@ -94,13 +99,12 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    <div className="px-8 pb-8">
-                        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-8"></div>
-                        <Link
-                            href="/welcome"
-                            className="block w-full bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] py-3 rounded-lg text-base font-medium text-center transition-all duration-300 hover:shadow-lg hover:scale-105"
-                        >
-                            Sign out
+                    <div className="flex gap-2">
+                        <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            Sign in
+                        </Link>
+                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            Register
                         </Link>
                     </div>
                 </div>
@@ -146,13 +150,12 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    <div className="px-8 pb-8">
-                        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-8"></div>
-                        <Link
-                            href="/welcome"
-                            className="block w-full bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] py-4 rounded-lg text-lg font-medium text-center transition-all duration-300 hover:shadow-lg hover:scale-105"
-                        >
-                            Sign out
+                    <div className="flex gap-2">
+                        <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            Sign in
+                        </Link>
+                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                            Register
                         </Link>
                     </div>
                 </div>
@@ -161,9 +164,12 @@ export default function Navbar() {
 
 
 
-            <header className="bg-[#111927] py-16 md:py-32 text-center px-4">
+            <header className="bg-[#111927] py-8 md:py-32 text-center px-4">
                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">Welcome to Article11</h1>
-                <p className="text-lg md:text-xl text-[#D4AF37]">"Your opinion is our matter"</p>
+                <p className="mb-5 text-lg md:text-xl text-[#D4AF37]">"Your opinion is our matter"</p>
+                <button className='w-60 bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] py-3 rounded-lg text-base font-medium text-center transition-all duration-300 hover:shadow-lg hover:scale-105'>
+                    Try out
+                </button>
             </header>
 
             <main className="p-8 pt-16 bg-white">
