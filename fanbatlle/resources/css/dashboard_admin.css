@@ -1,0 +1,169 @@
+
+
+.container2 {
+  width: 100%;
+  background-color: #ddd;
+  color: black;
+  height: 100vh;
+  text-align: center;
+}
+
+.containt{
+  margin-top: 70px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d1117;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-item {
+  cursor: pointer;
+  color: #facc15;
+  font-weight: bold;
+}
+
+.sign-out {
+  background-color: rgba(227, 255, 255);
+  border: none;
+  padding: 4px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight:lighter;
+  color: black;
+}
+
+.welcome {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.card {
+  background-color: #0d1117;
+  padding: 40px;
+  padding-left: 60px;
+  padding-right: 60px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  margin-top: 30px;
+  margin-left: 25%;
+  margin-right: 25%;
+  position: relative;
+  overflow: hidden;
+  width: 50%;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.card-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card.hidden {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.card.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+.card-title {
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #facc15;
+}
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  color: black;
+}
+
+table th {
+  background-color: #facc15;
+  color: black;
+  font-weight: bold;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #facc15;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.left {
+  left: 5px;
+  
+}
+
+.right {
+  right: 5px;
+
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .card {
+    padding: 15px;
+  }
+  .nav-button {
+    display: none;
+  }
+  table th, table td {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+
+

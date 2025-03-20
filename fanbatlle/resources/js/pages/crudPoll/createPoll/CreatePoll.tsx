@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import "../../../../css/create.css"
 // import axios from 'axios';
 
 // const csrfToken = document.head.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -29,10 +30,12 @@ export default function CreatePoll() {
     }
   
     return (
-      <div>
+    
+      
+      <div className='container'>
         <h2>Créer un sondage</h2>
-        <form onSubmit={submit}>
-          <div>
+        <form onSubmit={submit} >
+          <div className='form-group'>
             <label htmlFor="start_date">Date de début :</label>
             <input
               type="date"
@@ -44,7 +47,7 @@ export default function CreatePoll() {
               required
             />
           </div>
-          <div>
+          <div className='form-group'>
             <label htmlFor="end_date">Date de fin :</label>
             <input
               type="date"
@@ -56,7 +59,7 @@ export default function CreatePoll() {
               required
             />
           </div>
-          <div>
+          <div className='form-group'>
             <label htmlFor="poll_question">Question du sondage :</label>
             <input
               type="text"
@@ -68,9 +71,10 @@ export default function CreatePoll() {
               required
             />
           </div>
-          <button type="submit">Créer le sondage</button>
+          <button type="submit" className='btn'>Créer le sondage</button>
         </form>
       </div>
+        
     );
   }
 

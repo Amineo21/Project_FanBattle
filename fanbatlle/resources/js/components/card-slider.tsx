@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, ReactNode } from "react";
-import "../../css/slide.css";
+import '../../css/slide.css'
 
 
 
