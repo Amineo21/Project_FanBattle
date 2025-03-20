@@ -7,8 +7,8 @@ const EuStars = () => (
     <div className="absolute -inset-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 flex">
             {[...Array(5)].map((_, i) => (
-                <span 
-                    key={i} 
+                <span
+                    key={i}
                     className="text-yellow-400 text-xs transform origin-center animate-star"
                     style={{
                         animation: `starRotate 2s infinite ${i * 0.2}s`,
@@ -30,12 +30,12 @@ export default function Welcome() {
     return (
         <>
             <Head title="Welcome" />
-            
+
             <div className="min-h-screen flex flex-col md:flex-row">
                 <div className="hidden md:flex w-full md:w-1/2 bg-white items-center justify-center py-8 md:py-0">
-                    <img 
-                        src={logo} 
-                        alt="Article11 Logo" 
+                    <img
+                        src={logo}
+                        alt="Article11 Logo"
                         className="w-64 md:w-96 h-64 md:h-96 object-contain"
                     />
                 </div>
@@ -60,9 +60,9 @@ export default function Welcome() {
                     </nav>
                     <div className="flex-1 flex flex-col items-center justify-center px-4">
                         <div className="w-32 h-32 bg-white rounded-full flex items-center justify-center mb-8">
-                            <img 
-                                src={logo} 
-                                alt="Article11 Logo" 
+                            <img
+                                src={logo}
+                                alt="Article11 Logo"
                                 className="w-24 h-24 object-contain"
                             />
                         </div>
@@ -70,8 +70,8 @@ export default function Welcome() {
                         <p className="text-yellow-400 text-sm mb-8 text-center">
                             "We want to know what young europeans think"
                         </p>
-                        <Link 
-                            href="/login" 
+                        <Link
+                            href="/about"
                             className="bg-white text-[#111927] px-12 py-2 rounded-md text-base font-medium"
                         >
                             See more
@@ -79,11 +79,11 @@ export default function Welcome() {
                     </div>
                 </div>
 
-                
+
                 <div className="hidden md:block w-full md:w-1/2 bg-[#111927] text-white relative min-h-screen md:min-h-full">
                     <nav className="absolute w-full flex items-center justify-between px-4 md:px-12 pt-4 md:pt-6">
                         <div className="w-32"></div>
-                      
+
                         <div className="flex items-center">
                             {auth.user ? (
                                 <Link href="/dashboard" className="bg-white/90 hover:bg-white text-[#111927] px-3 md:px-4 py-1.5 rounded-md text-sm transition-colors">
@@ -108,8 +108,8 @@ export default function Welcome() {
                         <p className="text-lg md:text-xl text-yellow-400 text-center">
                             "We want to know what young europeans think"
                         </p>
-                        <Link 
-                            href="/login" 
+                        <Link
+                            href="/about"
                             className="bg-white hover:bg-white/90 text-[#111927] px-6 md:px-8 py-2 rounded-full mt-4 md:mt-8 text-sm md:text-base transition-all duration-300 hover:shadow-lg hover:scale-105 hover:bg-opacity-100"
                         >
                             See more

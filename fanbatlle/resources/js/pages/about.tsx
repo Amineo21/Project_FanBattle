@@ -1,6 +1,8 @@
-import { Link } from '@inertiajs/react';
+import { type SharedData } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import Logo from '../../img/logo.png';
 import '../../css/app.css';
+import TextLink from '@/components/text-link';
 import { useState } from 'react';
 
 const EuStars = () => (
@@ -25,6 +27,7 @@ const EuStars = () => (
 );
 
 export default function Navbar() {
+    const { auth } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -57,15 +60,20 @@ export default function Navbar() {
                         <EuStars />
                     </Link>
                     <div className="flex gap-2">
-                        <Link
-                            href="/login"
-                            className="bg-white hover:bg-gray-200 text-[#111927] px-4 py-1.5 rounded-md text-sm shadow-md transition"
-                        >
-                            Sign in
-                        </Link>
-                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Register
-                        </Link>
+                        {auth.user ? (
+                            <Link href={route('logout')} method="post" as="button" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Signout
+                            </Link>
+                        ) : (
+                            <div className="flex gap-2">
+                                <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Sign in
+                                </Link>
+                                <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                    Register
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -100,12 +108,15 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex gap-2">
-                        <Link href="/login" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Sign in
-                        </Link>
-                        <Link href="/register" className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
-                            Register
-                        </Link>
+                        {auth.user ? (
+                            <Link href='/udash' className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Try out
+                            </Link>
+                        ) : (
+                            <Link href={route('logout')} method="post" as="button" className="bg-white/90 hover:bg-white text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                                Signout
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -167,9 +178,16 @@ export default function Navbar() {
             <header className="bg-[#111927] py-8 md:py-32 text-center px-4">
                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6">Welcome to Article11</h1>
                 <p className="mb-5 text-lg md:text-xl text-[#D4AF37]">"Your opinion is our matter"</p>
-                <button className='w-60 bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] py-3 rounded-lg text-base font-medium text-center transition-all duration-300 hover:shadow-lg hover:scale-105'>
-                    Try out
-                </button>
+                {auth.user ? (
+                    <Link href='/udash' className="bg-[#D4AF37] hover:bg-yellow-400 text-[#111927] px-4 py-1.5 rounded-md text-sm">
+                        Try out
+                    </Link>
+                ) : (
+                    <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
+                        Log out
+                    </TextLink>
+                )}
+
             </header>
 
             <main className="p-8 pt-16 bg-white">
