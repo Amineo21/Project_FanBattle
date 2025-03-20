@@ -1,93 +1,80 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
-const UpdatePool = () => {
-  const [updateData, setUpdateData] = useState({
-    update_id: '',
-    start_date: '',
-    end_date: '',
-    poll_question: '',
+type Vote = {
+  id: number;
+  start_date: string;
+  end_date: string;
+  poll_question: string;
+};
+
+type PageProps = {
+  vote: Vote;
+};
+
+export default function UpdatePool() {
+  const { vote } = usePage<PageProps>().props;
+
+  const { data, setData, put, processing, errors } = useForm({
+    start_date: vote.start_date,
+    end_date: vote.end_date,
+    poll_question: vote.poll_question,
   });
 
-  const handleUpdateSubmit = async (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const voteId = updateData.update_id;
-    try {
-      const response = await fetch(`/votes/${voteId}`, {
-        method: 'PUT', // ou 'PATCH'
-        headers: {
-          'Content-Type': 'application/json',
-          // Ajoutez le token CSRF ici si nécessaire
-        },
-        body: JSON.stringify({
-          start_date: updateData.start_date,
-          end_date: updateData.end_date,
-          poll_question: updateData.poll_question,
-        }),
-      });
-      const result = await response.json();
-      alert('Sondage mis à jour : ' + JSON.stringify(result));
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour du sondage:', error);
-      alert('Erreur lors de la mise à jour du sondage');
-    }
+    put(`/polls/${vote.id}`, {
+      onSuccess: () => {
+        // Optionnel : afficher un message ou rediriger
+      },
+    });
   };
 
   return (
     <div>
-      <h2>Mettre à jour un sondage</h2>
-      <form onSubmit={handleUpdateSubmit}>
+      <Head title="Modifier le sondage" />
+      <h2>Modifier le sondage</h2>
+      <form onSubmit={submit}>
         <div>
-          <label htmlFor="update_id">ID du sondage :</label>
-          <input
-            type="number"
-            id="update_id"
-            value={updateData.update_id}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, update_id: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="update_start_date">Date de début :</label>
+          <label htmlFor="start_date">Date de début :</label>
           <input
             type="date"
-            id="update_start_date"
-            value={updateData.start_date}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, start_date: e.target.value })
-            }
+            id="start_date"
+            value={data.start_date}
+            onChange={(e) => setData('start_date', e.target.value)}
             required
           />
+          {errors.start_date && <div>{errors.start_date}</div>}
         </div>
         <div>
-          <label htmlFor="update_end_date">Date de fin :</label>
+          <label htmlFor="end_date">Date de fin :</label>
           <input
             type="date"
-            id="update_end_date"
-            value={updateData.end_date}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, end_date: e.target.value })
-            }
+            id="end_date"
+            value={data.end_date}
+            onChange={(e) => setData('end_date', e.target.value)}
             required
           />
+          {errors.end_date && <div>{errors.end_date}</div>}
         </div>
         <div>
-          <label htmlFor="update_poll_question">Question du sondage :</label>
+          <label htmlFor="poll_question">Question du sondage :</label>
           <input
             type="text"
-            id="update_poll_question"
-            value={updateData.poll_question}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, poll_question: e.target.value })
-            }
+            id="poll_question"
+            value={data.poll_question}
+            onChange={(e) => setData('poll_question', e.target.value)}
             required
           />
+          {errors.poll_question && <div>{errors.poll_question}</div>}
         </div>
-        <button type="submit">Mettre à jour</button>
+        <button type="submit" disabled={processing}>
+          Mettre à jour
+        </button>
       </form>
+      <Link href="/polls">
+        <button>Retour à la liste</button>
+      </Link>
     </div>
   );
-};
-
-export default UpdatePool;
+}

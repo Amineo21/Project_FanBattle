@@ -1,28 +1,24 @@
 import React, { useState } from 'react';
+import { Head, Link } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
-const DeletePool = () => {
+export default function DeletePoll() {
   const [deleteId, setDeleteId] = useState('');
 
-  const handleDeleteSubmit = async (e) => {
+  const handleDeleteSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await fetch(`/votes/${deleteId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          // Ajoutez le token CSRF ici si nécessaire
-        },
-      });
-      const result = await response.json();
-      alert('Sondage supprimé : ' + JSON.stringify(result));
-    } catch (error) {
-      console.error('Erreur lors de la suppression du sondage:', error);
-      alert('Erreur lors de la suppression du sondage');
+
+    if (!confirm('Voulez-vous vraiment supprimer ce sondage ?')) {
+      return;
     }
+
+    // Utilisez Inertia.delete pour appeler l'endpoint DELETE correspondant
+    Inertia.delete(`/polls/${deleteId}`);
   };
 
   return (
     <div>
+      <Head title="Supprimer un sondage" />
       <h2>Supprimer un sondage</h2>
       <form onSubmit={handleDeleteSubmit}>
         <div>
@@ -37,8 +33,9 @@ const DeletePool = () => {
         </div>
         <button type="submit">Supprimer</button>
       </form>
+      <Link href="/polls">
+        <button>Retour à la liste</button>
+      </Link>
     </div>
   );
-};
-
-export default DeletePool;
+}
