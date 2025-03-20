@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\VoteController\PollController;
+use App\Http\Controllers\Vote\UsersVoteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,6 +14,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/poll/vote/{voteId}', [UsersVoteController::class, 'create'])->name('poll.vote');
+Route::post('/poll/vote/{voteId}', [UsersVoteController::class, 'store']);
 
 Route::get('/about', function () {
     return Inertia::render('about');
