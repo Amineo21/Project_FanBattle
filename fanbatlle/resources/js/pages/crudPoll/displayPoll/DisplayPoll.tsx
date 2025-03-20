@@ -1,6 +1,5 @@
 import React from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, usePage, useForm } from '@inertiajs/react';
 
 type Vote = {
   id: number;
@@ -15,10 +14,13 @@ type PageProps = {
 
 export default function DisplayPoll() {
   const { votes } = usePage<PageProps>().props;
+  // On utilise useForm même sans données pour bénéficier de la méthode delete et d'une éventuelle gestion de l'état
+  const { delete: destroy } = useForm();
 
   const handleDelete = (id: number) => {
     if (confirm("Voulez-vous vraiment supprimer ce sondage ?")) {
-      Inertia.delete(`/polls/${id}`);
+      // Utilisation de la fonction route() pour générer l'URL (en supposant que la route s'appelle 'polls.destroy')
+      destroy(route('polls.destroy', id));
     }
   };
 
@@ -33,8 +35,8 @@ export default function DisplayPoll() {
           {votes.map((vote) => (
             <li key={vote.id}>
               <strong>ID :</strong> {vote.id} - <strong>Question :</strong> {vote.poll_question}{' '}
-              <Link href={`/polls/${vote.id}`}>Voir les détails</Link>{' '}
-              <Link href={`/polls/${vote.id}/edit`}>
+              <Link href={route('polls.show', vote.id)}>Voir les détails</Link>{' '}
+              <Link href={route('polls.edit', vote.id)}>
                 <button>Modifier</button>
               </Link>{' '}
               <button onClick={() => handleDelete(vote.id)}>Supprimer</button>

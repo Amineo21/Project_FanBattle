@@ -1,6 +1,5 @@
 import React from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, Link, usePage, useForm } from '@inertiajs/react';
 
 type Vote = {
   id: number;
@@ -13,12 +12,13 @@ type PageProps = {
   vote: Vote;
 };
 
-export default function DisplayPoolDetail() {
+export default function DisplayPollDetail() {
   const { vote } = usePage<PageProps>().props;
+  const { delete: destroy } = useForm();
 
   const handleDelete = () => {
     if (confirm("Voulez-vous vraiment supprimer ce sondage ?")) {
-      Inertia.delete(`/polls/${vote.id}`);
+      destroy(route('polls.destroy', vote.id));
     }
   };
 
@@ -38,11 +38,11 @@ export default function DisplayPoolDetail() {
       <p>
         <strong>Question :</strong> {vote.poll_question}
       </p>
-      <Link href={`/polls/${vote.id}/edit`}>
+      <Link href={route('polls.edit', vote.id)}>
         <button>Modifier</button>
       </Link>{' '}
       <button onClick={handleDelete}>Supprimer</button>{' '}
-      <Link href="/polls">
+      <Link href={route('polls.index')}>
         <button>Retour à la liste</button>
       </Link>
     </div>

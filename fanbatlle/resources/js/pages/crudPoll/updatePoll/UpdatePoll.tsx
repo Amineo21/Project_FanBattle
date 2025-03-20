@@ -12,7 +12,7 @@ type PageProps = {
   vote: Vote;
 };
 
-export default function UpdatePool() {
+export default function UpdatePoll() {
   const { vote } = usePage<PageProps>().props;
 
   const { data, setData, put, processing, errors } = useForm({
@@ -23,7 +23,7 @@ export default function UpdatePool() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    put(`/polls/${vote.id}`, {
+    put(route('polls.update', vote.id), {
       onSuccess: () => {
         // Optionnel : afficher un message ou rediriger
       },
@@ -72,7 +72,7 @@ export default function UpdatePool() {
           Mettre à jour
         </button>
       </form>
-      <Link href="/polls">
+      <Link href={route('polls.index')}>
         <button>Retour à la liste</button>
       </Link>
     </div>
