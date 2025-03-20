@@ -1,0 +1,23 @@
+{
+  "en": {
+    "welcome": "Welcome to Article11",
+    "description": "We want to know what young Europeans think",
+    "sign_in": "Sign in",
+    "register": "Register",
+    "see_more": "See more"
+  },
+  "fr": {
+    "welcome": "Bienvenue à l'article11",
+    "description": "Nous voulons savoir ce que pensent les jeunes Européens",
+    "sign_in": "Se connecter",
+    "register": "Registre",
+    "see_more": "Voir plus"
+  },
+  "de": {
+    "welcome": "Willkommen zu Artikel11",
+    "description": "Wir wollen wissen, was junge Europäer denken",
+    "sign_in": "anmelden",
+    "register": "Registrieren",
+    "see_more": "Sehen Sie mehr"
+  }
+}

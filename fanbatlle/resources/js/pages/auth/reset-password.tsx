@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
+import { useLanguage } from '@/components/LanguageContext';
+
 interface ResetPasswordProps {
     token: string;
     email: string;
@@ -20,7 +22,37 @@ type ResetPasswordForm = {
     password_confirmation: string;
 };
 
+
+const translations = {
+    en: {
+        title: "Reset password",
+        description: "Please enter your new password below",
+        email: "Email",
+        password: "Password",
+        confirm_password: "Confirm password",
+        reset: "Reset password",
+    },
+    fr: {
+        title: "Réinitialiser le mot de passe",
+        description: "Veuillez entrer votre nouveau mot de passe ci-dessous",
+        email: "Email",
+        password: "Mot de passe",
+        confirm_password: "Confirmez le mot de passe",
+        reset: "Réinitialiser le mot de passe",
+    },
+    de: {
+        title: "Passwort zurücksetzen",
+        description: "Bitte geben Sie unten Ihr neues Passwort ein",
+        email: "E-Mail",
+        password: "Passwort",
+        confirm_password: "Passwort bestätigen",
+        reset: "Passwort zurücksetzen",
+    },
+};
+
 export default function ResetPassword({ token, email }: ResetPasswordProps) {
+    const { language } = useLanguage();
+
     const { data, setData, post, processing, errors, reset } = useForm<Required<ResetPasswordForm>>({
         token: token,
         email: email,
@@ -36,13 +68,16 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
     };
 
     return (
-        <AuthLayout title="Reset password" description="Please enter your new password below">
-            <Head title="Reset password" />
+        <AuthLayout
+            title={translations[language].title}
+            description={translations[language].description}
+        >
+            <Head title={translations[language].title} /> {}
 
             <form onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">{translations[language].email}</Label> {}
                         <Input
                             id="email"
                             type="email"
@@ -57,7 +92,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password">Password</Label>
+                        <Label htmlFor="password">{translations[language].password}</Label> {}
                         <Input
                             id="password"
                             type="password"
@@ -67,13 +102,13 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             className="mt-1 block w-full"
                             autoFocus
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
+                            placeholder={translations[language].password}
                         />
                         <InputError message={errors.password} />
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="password_confirmation">Confirm password</Label>
+                        <Label htmlFor="password_confirmation">{translations[language].confirm_password}</Label> {}
                         <Input
                             id="password_confirmation"
                             type="password"
@@ -82,14 +117,14 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                             value={data.password_confirmation}
                             className="mt-1 block w-full"
                             onChange={(e) => setData('password_confirmation', e.target.value)}
-                            placeholder="Confirm password"
+                            placeholder={translations[language].confirm_password}
                         />
                         <InputError message={errors.password_confirmation} className="mt-2" />
                     </div>
 
                     <Button type="submit" className="mt-4 w-full" disabled={processing}>
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Reset password
+                        {translations[language].reset} {}
                     </Button>
                 </div>
             </form>

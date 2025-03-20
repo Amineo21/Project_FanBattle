@@ -212,3 +212,9 @@
 .hover-scale:hover {
     transform: scale(1.02);
 }
+
+.LanguageSvg{
+    position: absolute;
+    right: 28;
+    bottom: 10;
+}
