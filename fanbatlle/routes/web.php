@@ -11,6 +11,11 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
+
+Route::get('/polls', function () {
+    return Inertia::render('a');
+})->name('about');
+
 Route::get('/dashboardadmin', function () {
     return Inertia::render('dashboard_admin');
 })->name('dashboardadmin');

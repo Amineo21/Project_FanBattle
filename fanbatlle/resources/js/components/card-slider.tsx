@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, ReactNode } from "react";
 import "../../css/slide.css";
 
 
@@ -6,6 +6,7 @@ import "../../css/slide.css";
 
 // Définition des types pour les données utilisateurs
 interface User {
+  date: ReactNode;
   id: number;
   username: string;
   email: string;
@@ -44,15 +45,14 @@ const Card_Slider: React.FC = () => {
 
   // Récupération des utilisateurs (simulée)
   useEffect(() => {
-    fetch("App/Models")
+    fetch("./app/Models/User.php")
       .then((response) => response.json())
       .then((data) =>
         setUsers(
           data.map((user:any) => ({
             id: user.id,
-            username: user.username,
-            email: user.email,
-            country: "Unknown", // Ajout d'une valeur par défaut
+            date_of_birth: user.date,
+            
           }))
         )
       );
@@ -77,7 +77,7 @@ const Card_Slider: React.FC = () => {
           {users.map((user) => (
             <div className="slider-card" key={user.id}>
               <div className="card-detail">
-                <p className="slider-card-title">Username: {user.username}</p>
+                <p className="slider-card-title">Username: {user.date}</p>
                 <p className="slider-card-title">Email: {user.email}</p>
                 <p className="slider-card-title">Country: {user.country}</p>
               </div>
